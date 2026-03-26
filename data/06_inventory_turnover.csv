@@ -1,0 +1,8 @@
+product_id,product_name,current_stock,total_units_sold,cogs,inventory_value,inventory_turnover_ratio,days_to_sell_stock
+7,Standing Desk Pro,4,2,420.00,840.00,0.50,730
+5,Women's Blazer,18,2,96.00,864.00,0.11,3285
+1,ThinkPad X1 Carbon,23,2,1700.00,19550.00,0.09,4198
+2,Samsung Galaxy S24,25,2,1040.00,13000.00,0.08,4563
+3,Sony WH-1000XM5,45,2,360.00,8100.00,0.04,8213
+4,Men's Winter Jacket,30,1,55.00,1650.00,0.03,10950
+6,Coffee Maker Deluxe,60,1,32.00,1920.00,0.02,21900

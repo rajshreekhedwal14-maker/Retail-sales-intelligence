@@ -1,0 +1,11 @@
+product_id,product_name,store_name,country,stock_quantity,reorder_level,last_updated,stock_status,stock_buffer,estimated_days_until_stockout
+7,Standing Desk Pro,Munich Store,Germany,0,5,2026-03-26 06:44:20.83674,STOCKOUT,-5,0
+2,Samsung Galaxy S24,Munich Store,Germany,3,8,2026-03-26 06:44:20.83674,LOW STOCK - Reorder Now,-5,0
+7,Standing Desk Pro,Berlin Central,Germany,4,5,2026-03-26 06:44:20.83674,LOW STOCK - Reorder Now,-1,0
+3,Sony WH-1000XM5,Berlin Central,Germany,45,10,2026-03-26 06:44:20.83674,OK,35,0
+1,ThinkPad X1 Carbon,Berlin Central,Germany,15,5,2026-03-26 06:44:20.83674,OK,10,0
+5,Women's Blazer,Paris Branch,France,18,10,2026-03-26 06:44:20.83674,Watch - Stock Getting Low,8,0
+6,Coffee Maker Deluxe,Vienna Flagship,Austria,60,20,2026-03-26 06:44:20.83674,OK,40,0
+4,Men's Winter Jacket,Berlin Central,Germany,30,15,2026-03-26 06:44:20.83674,Watch - Stock Getting Low,15,0
+1,ThinkPad X1 Carbon,Munich Store,Germany,8,5,2026-03-26 06:44:20.83674,Watch - Stock Getting Low,3,0
+2,Samsung Galaxy S24,Berlin Central,Germany,22,8,2026-03-26 06:44:20.83674,OK,14,0

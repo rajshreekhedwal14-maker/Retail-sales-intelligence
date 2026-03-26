@@ -1,0 +1,6 @@
+customer_id,customer_name,segment,country,total_revenue,total_orders,revenue_rank,cumulative_revenue_pct,customer_tier
+2,Thomas Schmidt,VIP,Germany,2821.15,3,1,45.5,Top 20%
+1,Anna Müller,Premium,Germany,2529.55,2,2,86.4,Next 20%
+5,Maria Hofer,VIP,Austria,438.00,2,3,93.4,Standard
+3,Sophie Dubois,Standard,France,258.00,1,4,97.6,Standard
+6,Lukas Wagner,Standard,Germany,149.00,1,5,100.0,Standard

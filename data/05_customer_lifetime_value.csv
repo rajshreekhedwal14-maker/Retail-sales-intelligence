@@ -1,0 +1,6 @@
+customer_id,customer_name,segment,total_orders,total_revenue,first_order_date,last_order_date,lifespan_days,avg_order_value,orders_per_month,annualized_clv
+2,Thomas Schmidt,VIP,3,2821.15,2024-01-15,2024-04-10,86,940.38,1.05,11973.49
+1,Anna Müller,Premium,2,2529.55,2024-01-10,2024-03-22,72,1264.78,0.83,12823.41
+5,Maria Hofer,VIP,2,438.00,2024-01-20,2024-04-05,76,219.00,0.79,2103.55
+3,Sophie Dubois,Standard,1,258.00,2024-02-14,2024-02-14,0,258.00,1,null
+6,Lukas Wagner,Standard,1,149.00,2024-04-18,2024-04-18,0,149.00,1,null
