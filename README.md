@@ -43,18 +43,10 @@ roles in the German market.
 - Top 20% of customers generate ~78% of total revenue
 - Germany accounts for the highest revenue share across all markets
 - 2 products identified as critical stockout risk in Munich store
-- Repeat purchase rate of 71% indicates strong customer retention
+- Repeat purchase rate of 60% indicates strong customer retention
 
 # Author
 RAJSHREE KHEDWAL
 Aspiring Data Analyst | Open to opportunities in Germany  
 
 
-```
-Retail Sales & Customer Intelligence System
-github.com/[yourusername]/retail-sales-intelligence
-
-Built end-to-end analytics system for a simulated European 
-retail company using PostgreSQL, Python, Excel, and Power BI.
-Delivered 7 business KPIs including CLV, inventory turnover, 
-and Pareto customer segmentation across 5 European markets.
