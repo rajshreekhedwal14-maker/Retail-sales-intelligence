@@ -1,1 +1,0 @@
-Query results data folder
