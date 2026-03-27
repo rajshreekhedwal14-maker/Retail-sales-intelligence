@@ -26,7 +26,7 @@ roles in the German market.
 ├── sql/01_schema.sql        → Relational database design (7 tables)
 ├── sql/02_sample_data.sql   → Realistic retail dataset
 ├── sql/03_queries.sql       → 7 business KPI queries
-├── excel/                   → Pivot tables & KPI report
+├── excel/retail_analysis.xlsx → KPI Dashboard + 4 Pivot Tables + 4 Charts
 ├── python/                  → EDA, CLV model, churn analysis
 └── powerbi/                 → Executive sales dashboard
 
