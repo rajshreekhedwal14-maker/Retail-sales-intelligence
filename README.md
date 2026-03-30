@@ -7,7 +7,8 @@ operating across 5 European markets (Germany, Austria, France, Netherlands, Belg
 Built to demonstrate practical Data & Business Analyst skills
 relevant to the German job market.
 
- 📊 Live Interactive Dashboard
+# Live Interactive Dashboard
+
 https://lookerstudio.google.com/reporting/faa000a4-1da1-485d-81b4-d79306ca1081
 ---
 
