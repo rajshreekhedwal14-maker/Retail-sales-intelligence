@@ -1,7 +1,7 @@
 # Retail Sales & Customer Intelligence System
 
 ## Live Interactive Dashboard
-(https://lookerstudio.google.com/reporting/faa000a4-1da1-485d-81b4-d79306ca1081)
+[Click here to view Dashboard](https://lookerstudio.google.com/reporting/faa000a4-1da1-485d-81b4-d79306ca1081)81)
 
 ## Project Overview
 End-to-end data analytics project simulating a mid-sized German retail company operating across 5 European markets. Built to demonstrate practical Data and Business Analyst skills relevant to the German job market.
