@@ -1,168 +1,72 @@
 # ============================================================
-# CHART 1 — Monthly Revenue Trend
+# 02_clv_model.py — Customer Lifetime Value
 # ============================================================
 
-plt.figure(figsize=(10, 5))
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
-plt.bar(
-    df_revenue['revenue_month'],
-    df_revenue['gross_revenue'],
-    color='steelblue',
-    edgecolor='white'
-)
+df_clv = pd.read_csv('05_customer_lifetime_value.csv')
+df_clv.columns = df_clv.columns.str.strip().str.lower()
 
-for i, v in enumerate(df_revenue['gross_revenue']):
-    plt.text(i, v + 50, f'€{v:,.2f}', ha='center', fontweight='bold')
+df_clv['annualized_clv'] = pd.to_numeric(
+    df_clv['annualized_clv'], errors='coerce'
+).fillna(0)
 
-plt.title('Monthly Revenue Trend 2024', fontsize=16, fontweight='bold')
-plt.xlabel('Month')
-plt.ylabel('Gross Revenue (€)')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.savefig('chart1_monthly_revenue.png', dpi=150)
-plt.show()
-print(" Chart 1 done")
+df_clv['avg_order_value'] = pd.to_numeric(
+    df_clv['avg_order_value'], errors='coerce'
+).fillna(0)
 
-# ============================================================
-# CHART 2 — Revenue by Country
-# ============================================================
+features = ['total_revenue', 'total_orders', 'annualized_clv']
+df_clv[features] = df_clv[features].apply(pd.to_numeric, errors='coerce').fillna(0)
 
-plt.figure(figsize=(8, 5))
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(df_clv[features])
 
-colors = ['#2ecc71', '#3498db', '#e74c3c']
+df_clv['clv_score'] = (
+    scaled[:, 0] * 0.40 +
+    scaled[:, 1] * 0.30 +
+    scaled[:, 2] * 0.30
+) * 100
 
-bars = plt.bar(
-    df_country['shipping_country'],
-    df_country['total_revenue'],
-    color=colors,
-    edgecolor='white'
-)
+df_clv['clv_score'] = df_clv['clv_score'].round(1)
 
-for bar, share in zip(bars, df_country['revenue_share_pct']):
-    plt.text(
-        bar.get_x() + bar.get_width()/2,
-        bar.get_height() + 50,
-        f'{share}%',
-        ha='center',
-        fontweight='bold'
-    )
-
-plt.title('Revenue by Country 2024', fontsize=16, fontweight='bold')
-plt.xlabel('Country')
-plt.ylabel('Total Revenue (€)')
-plt.tight_layout()
-plt.savefig('chart2_country_revenue.png', dpi=150)
-plt.show()
-print(" Chart 2 done")
-
-# ============================================================
-# CHART 3 — Top Customers
-# ============================================================
-
-plt.figure(figsize=(10, 5))
-
-df_customers_sorted = df_customers.sort_values('total_revenue', ascending=True)
-
-colors = ['#e74c3c' if tier == 'Top 20%'
-          else '#f39c12' if tier == 'Next 20%'
-          else '#95a5a6'
-          for tier in df_customers_sorted['customer_tier']]
-
-plt.barh(
-    df_customers_sorted['customer_name'],
-    df_customers_sorted['total_revenue'],
-    color=colors
-)
-
-plt.title('Customer Revenue Ranking', fontsize=16, fontweight='bold')
-plt.xlabel('Total Revenue (€)')
-plt.tight_layout()
-plt.savefig('chart3_top_customers.png', dpi=150)
-plt.show()
-print(" Chart 3 done")
-
-# ============================================================
-# CHART 4 — Inventory Stock Levels
-# ============================================================
-
-plt.figure(figsize=(12, 5))
-
-colors = []
-for status in df_stockout['stock_status']:
-    if status == 'STOCKOUT':
-        colors.append('#e74c3c')
-    elif 'LOW' in status:
-        colors.append('#f39c12')
-    elif 'Watch' in status:
-        colors.append('#f1c40f')
+def assign_tier(score):
+    if score >= 70:
+        return 'Platinum'
+    elif score >= 40:
+        return 'Gold'
+    elif score >= 20:
+        return 'Silver'
     else:
-        colors.append('#2ecc71')
+        return 'Bronze'
 
-plt.bar(
-    range(len(df_stockout)),
-    df_stockout['stock_quantity'],
-    color=colors
-)
+df_clv['clv_tier'] = df_clv['clv_score'].apply(assign_tier)
 
-plt.xticks(
-    range(len(df_stockout)),
-    [f"{row['product_name']}\n{row['store_name']}"
-     for _, row in df_stockout.iterrows()],
-    rotation=45,
-    ha='right'
-)
+print(" CLV SCORES")
+print(df_clv[['customer_name', 'total_revenue', 'clv_score', 'clv_tier']])
 
-plt.title('Inventory Stock Levels by Product & Store', fontsize=16, fontweight='bold')
-plt.ylabel('Stock Quantity')
+plt.figure(figsize=(10, 5))
+
+colors = ['#e74c3c' if s >= 70
+          else '#f39c12' if s >= 40
+          else '#3498db'
+          for s in df_clv['clv_score']]
+
+plt.bar(df_clv['customer_name'], df_clv['clv_score'], color=colors)
+
+for i, score in enumerate(df_clv['clv_score']):
+    plt.text(i, score + 1, f'{score}', ha='center', fontweight='bold')
+
+plt.title('Customer Lifetime Value Score', fontsize=16, fontweight='bold')
+plt.xlabel('Customer')
+plt.ylabel('CLV Score (0-100)')
+plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
-plt.savefig('chart4_inventory.png', dpi=150)
+plt.savefig('chart6_clv_scores.png', dpi=150)
 plt.show()
-print(" Chart 4 done")
+print(" CLV Chart done")
 
-# ============================================================
-# CHART 5 — Customer Segment Pie Chart
-# ============================================================
-
-plt.figure(figsize=(7, 7))
-
-segment_revenue = df_customers.groupby('segment')['total_revenue'].sum()
-
-plt.pie(
-    segment_revenue,
-    labels=segment_revenue.index,
-    autopct='%1.1f%%',
-    colors=['#e74c3c', '#3498db', '#2ecc71'],
-    startangle=90,
-    wedgeprops={'edgecolor': 'white', 'linewidth': 2}
-)
-
-plt.title('Revenue by Customer Segment', fontsize=16, fontweight='bold')
-plt.tight_layout()
-plt.savefig('chart5_segments.png', dpi=150)
-plt.show()
-print(" Chart 5 done")
-
-# ============================================================
-# BUSINESS INSIGHTS SUMMARY
-# ============================================================
-
-print("\n" + "=" * 50)
-print(" KEY BUSINESS INSIGHTS")
-print("=" * 50)
-
-total_revenue = df_country['total_revenue'].sum()
-top_country = df_country.loc[df_country['total_revenue'].idxmax(), 'shipping_country']
-top_country_share = df_country['revenue_share_pct'].max()
-
-print(f"Total Revenue:        €{total_revenue:,.2f}")
-print(f"Top Market:           {top_country} ({top_country_share}%)")
-print(f"Repeat Purchase Rate: {df_repeat['repeat_purchase_rate_pct'].values[0]}%")
-print(f"Total Customers:      {df_repeat['total_customers'].values[0]}")
-
-top_customer = df_customers.loc[df_customers['total_revenue'].idxmax(), 'customer_name']
-top_customer_rev = df_customers['total_revenue'].max()
-print(f"Top Customer:         {top_customer} (€{top_customer_rev:,.2f})")
-
-stockout_count = len(df_stockout[df_stockout['stock_status'] == 'STOCKOUT'])
-print(f"Products in Stockout: {stockout_count}")
-print("=" * 50)
+df_clv.to_csv('clv_results.csv', index=False)
+print(" CLV results saved")
